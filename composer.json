@@ -23,7 +23,11 @@
         "psr-4": {
             "Infection\\Tests\\": "tests/"
         },
-        "files": ["tests/Helpers.php"]
+        "files": [
+            "tests/Helpers.php",
+            "tests/Files/Autoloaded/Reflection/rv-inside-function.php"
+        ],
+        "classmap": ["tests/Files/Autoloaded"]
     },
     "config": {
         "platform": {

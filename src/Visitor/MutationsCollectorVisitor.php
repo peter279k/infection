@@ -60,7 +60,7 @@ class MutationsCollectorVisitor extends NodeVisitorAbstract
             $isOnFunctionSignature = $node->getAttribute(WrappedFunctionInfoCollectorVisitor::IS_ON_FUNCTION_SIGNATURE, false);
 
             if (!$isOnFunctionSignature) {
-                if (!$node->getAttribute(WrappedFunctionInfoCollectorVisitor::IS_INSIDE_FUNCTION_KEY)) {
+                if (!$node->getAttribute(ReflectionVisitor::IS_INSIDE_FUNCTION_KEY)) {
                     continue;
                 }
             }

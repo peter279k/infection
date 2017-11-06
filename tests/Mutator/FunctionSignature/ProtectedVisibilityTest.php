@@ -16,22 +16,14 @@ class ProtectedVisibilityTest extends AbstractMutator
 {
     public function test_changes_protected_to_private_method_visibility()
     {
-        $code = <<<'CODE'
-<?php
+        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-one-class.php');
 
-class Test
-{
-    protected function foo(int $param, $test = 1): bool
-    {
-        echo 1;
-        return false;
-    }
-}
-CODE;
         $mutatedCode = $this->mutate($code);
 
         $expectedMutatedCode = <<<'CODE'
 <?php
+
+namespace ProtectedVisibilityOneClass;
 
 class Test
 {
@@ -48,22 +40,14 @@ CODE;
 
     public function test_it_does_not_change_static_flag()
     {
-        $code = <<<'CODE'
-<?php
+        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-static.php');
 
-class Test
-{
-    protected static function foo(int $param, $test = 1): bool
-    {
-        echo 1;
-        return false;
-    }
-}
-CODE;
         $mutatedCode = $this->mutate($code);
 
         $expectedMutatedCode = <<<'CODE'
 <?php
+
+namespace ProtectedVisibilityStatic;
 
 class Test
 {
@@ -80,18 +64,14 @@ CODE;
 
     public function test_it_does_not_change_abstract_protected_function()
     {
-        $code = <<<'CODE'
-<?php
+        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-abstract.php');
 
-abstract class Test
-{
-    abstract protected function foo(int $param, $test = 1): bool;
-}
-CODE;
         $mutatedCode = $this->mutate($code);
 
         $expectedMutatedCode = <<<'CODE'
 <?php
+
+namespace ProtectedVisibilityAbstract;
 
 abstract class Test
 {
@@ -102,24 +82,70 @@ CODE;
         $this->assertSame($expectedMutatedCode, $mutatedCode);
     }
 
-    public function test_it_does_not_change_final_flag()
+    public function test_it_does_not_mutate_if_parent_abstract_has_same_protected_method()
     {
-        $code = <<<'CODE'
-<?php
+        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-same-method-abstract.php');
 
-class Test
-{
-    final protected function foo(int $param, $test = 1): bool
-    {
-        echo 1;
-        return false;
-    }
-}
-CODE;
         $mutatedCode = $this->mutate($code);
 
         $expectedMutatedCode = <<<'CODE'
 <?php
+
+namespace ProtectedSameAbstract;
+
+abstract class SameAbstract
+{
+    protected abstract function foo();
+}
+class Child extends SameAbstract
+{
+    protected function foo()
+    {
+    }
+}
+CODE;
+
+        $this->assertSame($expectedMutatedCode, $mutatedCode);
+    }
+
+    public function test_it_does_not_mutate_if_parent_class_has_same_protected_method()
+    {
+        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-same-method-parent.php');
+
+        $mutatedCode = $this->mutate($code);
+
+        $expectedMutatedCode = <<<'CODE'
+<?php
+
+namespace ProtectedSameParent;
+
+class SameParent
+{
+    private function foo()
+    {
+    }
+}
+class Child extends SameParent
+{
+    protected function foo()
+    {
+    }
+}
+CODE;
+
+        $this->assertSame($expectedMutatedCode, $mutatedCode);
+    }
+
+    public function test_it_does_not_change_final_flag()
+    {
+        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-final.php');
+
+        $mutatedCode = $this->mutate($code);
+
+        $expectedMutatedCode = <<<'CODE'
+<?php
+
+namespace ProtectedVisibilityFinal;
 
 class Test
 {
