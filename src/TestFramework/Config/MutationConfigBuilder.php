@@ -26,14 +26,21 @@ abstract class MutationConfigBuilder
             );
         }
 
+        $namespacePrefix = $this->getInterceptorNamespacePrefix();
+
         return <<<CONTENT
 {$infectionPhar}
 require_once '{$interceptorPath}';
 
-use Infection\StreamWrapper\IncludeInterceptor;
+use {$namespacePrefix}Infection\StreamWrapper\IncludeInterceptor;
 
 IncludeInterceptor::intercept('{$originalFilePath}', '{$mutatedFilePath}');
 IncludeInterceptor::enable();
 CONTENT;
+    }
+
+    private function getInterceptorNamespacePrefix()
+    {
+        return strstr(__NAMESPACE__, 'Infection', true);
     }
 }
