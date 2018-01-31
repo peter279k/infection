@@ -16,7 +16,7 @@ class ProtectedVisibilityTest extends AbstractMutator
 {
     public function test_changes_protected_to_private_method_visibility()
     {
-        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-one-class.php');
+        $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/ProtectedVisibility/pv-one-class.php');
 
         $mutatedCode = $this->mutate($code);
 
@@ -40,7 +40,7 @@ CODE;
 
     public function test_it_does_not_change_static_flag()
     {
-        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-static.php');
+        $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/ProtectedVisibility/pv-static.php');
 
         $mutatedCode = $this->mutate($code);
 
@@ -64,7 +64,7 @@ CODE;
 
     public function test_it_does_not_change_abstract_protected_function()
     {
-        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-abstract.php');
+        $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/ProtectedVisibility/pv-abstract.php');
 
         $mutatedCode = $this->mutate($code);
 
@@ -84,7 +84,7 @@ CODE;
 
     public function test_it_does_not_mutate_if_parent_abstract_has_same_protected_method()
     {
-        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-same-method-abstract.php');
+        $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/ProtectedVisibility/pv-same-method-abstract.php');
 
         $mutatedCode = $this->mutate($code);
 
@@ -110,7 +110,7 @@ CODE;
 
     public function test_it_does_not_mutate_if_parent_class_has_same_protected_method()
     {
-        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-same-method-parent.php');
+        $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/ProtectedVisibility/pv-same-method-parent.php');
 
         $mutatedCode = $this->mutate($code);
 
@@ -136,9 +136,40 @@ CODE;
         $this->assertSame($expectedMutatedCode, $mutatedCode);
     }
 
+    public function test_it_does_not_mutate_if_grand_parent_class_has_same_protected_method()
+    {
+        $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/ProtectedVisibility/pv-same-method-grandparent.php');
+
+        $mutatedCode = $this->mutate($code);
+
+        $expectedMutatedCode = <<<'CODE'
+<?php
+
+namespace ProtectedSameGrandParent;
+
+class SameGrandParent
+{
+    private function foo()
+    {
+    }
+}
+class SameParent extends SameGrandParent
+{
+}
+class Child extends SameParent
+{
+    protected function foo()
+    {
+    }
+}
+CODE;
+
+        $this->assertSame($expectedMutatedCode, $mutatedCode);
+    }
+
     public function test_it_does_not_change_final_flag()
     {
-        $code = file_get_contents(__DIR__ . '/../../Files/Autoloaded/ProtectedVisibility/pv-final.php');
+        $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/ProtectedVisibility/pv-final.php');
 
         $mutatedCode = $this->mutate($code);
 

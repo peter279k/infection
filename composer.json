@@ -25,9 +25,9 @@
         },
         "files": [
             "tests/Helpers.php",
-            "tests/Files/Autoloaded/Reflection/rv-inside-function.php"
+            "tests/Fixtures/Autoloaded/Reflection/rv-inside-function.php"
         ],
-        "classmap": ["tests/Files/Autoloaded"]
+        "classmap": ["tests/Fixtures/Autoloaded"]
     },
     "config": {
         "platform": {

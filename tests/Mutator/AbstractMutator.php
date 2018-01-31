@@ -13,7 +13,6 @@ use Infection\Tests\Fixtures\SimpleMutatorVisitor;
 use Infection\Visitor\FullyQualifiedClassNameVisitor;
 use Infection\Visitor\ReflectionVisitor;
 use Infection\Visitor\CloneVisitor;
-use Infection\Visitor\WrappedFunctionInfoCollectorVisitor;
 use Infection\Visitor\ParentConnectorVisitor;
 use PHPUnit\Framework\TestCase;
 use PhpParser\Lexer;
@@ -53,7 +52,6 @@ abstract class AbstractMutator extends TestCase
         $traverser->addVisitor(new ParentConnectorVisitor());
         $traverser->addVisitor(new FullyQualifiedClassNameVisitor());
         $traverser->addVisitor(new ReflectionVisitor());
-        $traverser->addVisitor(new WrappedFunctionInfoCollectorVisitor());
         $traverser->addVisitor(new CloneVisitor());
         $traverser->addVisitor(new SimpleMutatorVisitor($this->mutator));
 

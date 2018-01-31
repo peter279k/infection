@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Infection\Mutator\ReturnValue;
 
 use Infection\Mutator\Mutator;
-use Infection\Mutator\FunctionBodyMutator;
 use Infection\Visitor\ReflectionVisitor;
 use PhpParser\Node;
 

@@ -4,6 +4,7 @@
  *
  * License: https://opensource.org/licenses/BSD-3-Clause New BSD License
  */
+
 use Infection\Php\XdebugHandler;
 use Infection\Php\ConfigBuilder;
 
@@ -11,6 +12,7 @@ $autoloaderInWorkingDirectory = getcwd() . '/vendor/autoload.php';
 if (is_file($autoloaderInWorkingDirectory)) {
     require_once $autoloaderInWorkingDirectory;
 }
+unset($autoloaderInWorkingDirectory);
 
 $files = [
     __DIR__ . '/../../../autoload.php',

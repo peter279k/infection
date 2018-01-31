@@ -1,9 +1,10 @@
 <?php
 /**
- * Copyright © 2017 Maks Rafalko
+ * Copyright © 2017-2018 Maks Rafalko
  *
  * License: https://opensource.org/licenses/BSD-3-Clause New BSD License
  */
+
 declare(strict_types=1);
 
 namespace Infection\Tests\Visitor;
@@ -27,7 +28,7 @@ class FullyQualifiedClassNameVisitorTest extends TestCase
 
     public function test_it_adds_fqcl_to_class_node()
     {
-        $code = file_get_contents(__DIR__ . '/../Files/Autoloaded/Fqcn/fqcn-empty-class.php');
+        $code = file_get_contents(__DIR__ . '/../Fixtures/Autoloaded/Fqcn/fqcn-empty-class.php');
 
         $this->parseAndTraverse($code);
 
@@ -40,7 +41,7 @@ class FullyQualifiedClassNameVisitorTest extends TestCase
 
     public function test_it_adds_fqcl_to_class_with_interface()
     {
-        $code = file_get_contents(__DIR__ . '/../Files/Autoloaded/Fqcn/fqcn-class-interface.php');
+        $code = file_get_contents(__DIR__ . '/../Fixtures/Autoloaded/Fqcn/fqcn-class-interface.php');
 
         $this->parseAndTraverse($code);
 
@@ -53,7 +54,7 @@ class FullyQualifiedClassNameVisitorTest extends TestCase
 
     public function test_it_adds_fqcl_to_class_with_anonymous_class()
     {
-        $code = file_get_contents(__DIR__ . '/../Files/Autoloaded/Fqcn/fqcn-anonymous-class.php');
+        $code = file_get_contents(__DIR__ . '/../Fixtures/Autoloaded/Fqcn/fqcn-anonymous-class.php');
 
         $this->parseAndTraverse($code);
 
@@ -64,7 +65,7 @@ class FullyQualifiedClassNameVisitorTest extends TestCase
         );
     }
 
-    private function getNodes(string $code) : array
+    private function getNodes(string $code): array
     {
         $lexer = new Lexer();
         $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7, $lexer);

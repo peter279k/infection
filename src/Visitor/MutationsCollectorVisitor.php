@@ -57,7 +57,7 @@ class MutationsCollectorVisitor extends NodeVisitorAbstract
     public function leaveNode(Node $node)
     {
         foreach ($this->mutators as $mutator) {
-            $isOnFunctionSignature = $node->getAttribute(WrappedFunctionInfoCollectorVisitor::IS_ON_FUNCTION_SIGNATURE, false);
+            $isOnFunctionSignature = $node->getAttribute(ReflectionVisitor::IS_ON_FUNCTION_SIGNATURE, false);
 
             if (!$isOnFunctionSignature) {
                 if (!$node->getAttribute(ReflectionVisitor::IS_INSIDE_FUNCTION_KEY)) {

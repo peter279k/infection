@@ -16,21 +16,14 @@ class ThisTest extends AbstractMutator
 {
     public function test_mutates_returning_this()
     {
-        $code = <<<'CODE'
-<?php
+        $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/This_/this_return-this.php');
 
-class Test
-{
-    function test()
-    {
-        return $this;
-    }
-}
-CODE;
         $mutatedCode = $this->mutate($code);
 
         $expectedMutatedCode = <<<'CODE'
 <?php
+
+namespace This_ReturnThis;
 
 class Test
 {
