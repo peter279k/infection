@@ -60,6 +60,10 @@ CODE;
 
     public function test_it_mutates_when_function_contains_another_function_but_returns_new_instance_and_null_allowed()
     {
+        if (\PHP_VERSION_ID < 70100) {
+            $this->markTestSkipped('Current PHP version does not support nullable return typehint.');
+        }
+
         $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/NewObject/no-contains-another-func-and-null-allowed.php');
 
         $mutatedCode = $this->mutate($code);
@@ -87,6 +91,10 @@ CODE;
 
     public function test_it_does_not_mutate_when_function_contains_another_function_but_return_null_is_not_allowed()
     {
+        if (\PHP_VERSION_ID < 70100) {
+            $this->markTestSkipped('Current PHP version does not support nullable return typehint.');
+        }
+
         $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/NewObject/no-contains-another-func-and-null-is-not-allowed.php');
 
         $mutatedCode = $this->mutate($code);
@@ -113,6 +121,10 @@ CODE;
 
     public function test_it_mutates_when_return_typehint_fqcn_allows_null()
     {
+        if (\PHP_VERSION_ID < 70100) {
+            $this->markTestSkipped('Current PHP version does not support nullable return typehint.');
+        }
+
         $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/NewObject/no-mutates-return-typehint-fqcn-allows-null.php');
         $mutatedCode = $this->mutate($code);
 
@@ -204,6 +216,10 @@ CODE;
 
     public function test_mutates_when_scalar_return_typehint_allows_null()
     {
+        if (\PHP_VERSION_ID < 70100) {
+            $this->markTestSkipped('Current PHP version does not support nullable return typehint.');
+        }
+
         $code = file_get_contents(__DIR__ . '/../../Fixtures/Autoloaded/NewObject/no-mutates-scalar-return-typehint-allows-null.php');
         $mutatedCode = $this->mutate($code);
 
