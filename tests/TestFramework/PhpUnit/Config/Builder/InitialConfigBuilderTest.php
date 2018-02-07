@@ -69,7 +69,8 @@ class InitialConfigBuilderTest extends Mockery\Adapter\Phpunit\MockeryTestCase
             file_get_contents($phpunitXmlPath),
             new XmlConfigurationHelper($replacer),
             $jUnitFilePath,
-            $srcDirs
+            $srcDirs,
+            false
         );
     }
 
